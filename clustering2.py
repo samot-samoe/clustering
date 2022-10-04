@@ -205,6 +205,7 @@ if distr:
     pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
     pl = sns.countplot(x=data["Кластеры"], palette= pal)
     pl.set_title("Распределение кластеров")
+    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
 
 st.subheader('Третий шаг')
@@ -217,6 +218,7 @@ if spend:
     plt.figure()
     pl=sns.swarmplot(x=data["Кластеры"], y=data["Покупки"], color= "#CBEDDD", alpha=0.5 )
     pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"], palette=pal)
+    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
     st.write(""" По построенным графикам легко определить, покупательская способность какого кластера является для нас наиболее интересной
     
@@ -230,6 +232,7 @@ if deals:
     plt.figure()
     pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"], palette= pal)
     pl.set_title("Количество покупок со скидкой")
+    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
 
     st.write("""С большой долей вероятности, если кластеризация проведена верно, то кластер, интересующий нас по наибольшему количеству
@@ -246,6 +249,7 @@ if purch:
     for i in Places:
         plt.figure()
         sns.jointplot(x=data[i],y = data["Покупки"],hue=data["Кластеры"])#, palette= pal)
+        st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         st.pyplot(plt.show())
 
 st.subheader('Шестой шаг')
@@ -254,11 +258,12 @@ st.write("""В последнем шаге нашего исследования
 """)
 profile = st.checkbox('Посмотрим, как в кластерах распределены покупатели')
 if profile:
-    Personal = [ "Маленькие_дети","Подростки", "Возраст", "Всего_детей", "Размер_семьи", "Родитель","С_кем_живет"] # "Уровень_образования"
+    Personal = [ "Маленькие_дети","Подростки", "Возраст", "Всего_детей", "Размер_семьи", "С_кем_живет"] # "Уровень_образования" "Родитель",
 
     for i in Personal:
         plt.figure()
         sns.jointplot(x=data[i], y=data["Покупки"], hue =data["Кластеры"], kind="kde")#, palette=pal)
+        st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         st.pyplot(plt.show())
 
 st.subheader('Выводы')
