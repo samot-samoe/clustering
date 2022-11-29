@@ -6,6 +6,11 @@ import numpy as np
 from PIL import Image
 import visualiser as vi
 import seaborn as sns
+import plotly.graph_objects as go
+import plotly.express as px
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import matplotlib
 
 st.markdown('''<h1 style='text-align: center; color: black;'
             >Кластеризация. Часть 2</h1>''', 
@@ -20,7 +25,7 @@ st.write("""
 
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
-img_pipeline = Image.open('pipeline.png') #
+img_pipeline = Image.open('2.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') 
 
 # my_data = pd.read_csv('final_customer_clustering_drop.csv')
@@ -96,7 +101,7 @@ if option2 == 'TSNE':
     p2 ='TSNE'
 if option2 == 'PCA':
     p2 ='PCA'
-option3= form.number_input('Выберите количество клaстеров', min_value=2, max_value = 50)
+option3= form.number_input('Выберите количество клaстеров', min_value=2, max_value = 20)
 if option3:
     p3=option3
 fin_button = form.form_submit_button("Проверить")
@@ -106,15 +111,13 @@ if fin_button:
     visual = vi.Visualise()
     st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     # st.write(p1)
-    st.pyplot(visual.visualizer(cluster = p1,reductor = p2,n_clusters = p3,data = my_data))
+    visual.visualizer(cluster = p1,reductor = p2,n_clusters = p3,data = my_data)
     # st.write(vi.C)
 
 # #-----------------adjusted_rand_score Block---------------
 
 # st.subheader('Проверим на реальных классах')
-
-# st.write("""Теперь, чтобы проверить, насколько наша кластеризация соответствует реальным классам,воспользуемся
-# метрикой *adjusted_rand_score*
+px.data.tips()
 # """)
 # button_adjusted = st.button('Проверить')
 # if button_adjusted:
@@ -142,9 +145,6 @@ fin_op_2 = st.selectbox('Выберите кластеризатор',
 if fin_op_2 == 'KMeans':
     fin_cl = 'KMeans'
 
-if fin_op_2 == 'SpectralClustering':
-    fin_cl = 'SpectralClustering'
-
 if fin_op_2 == 'AgglomerativeClustering':
     fin_cl = 'AgglomerativeClustering'
 
@@ -154,14 +154,14 @@ form =  st.form("Form")
 if fin_op_1 == 'UMAP':
     form =  st.form("Form1")
     fin_red = 'UMAP'
-    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =4)
-    neigh_input = form.number_input("(n_neighbors)Выберите количество соседей для каждого элемента",min_value = 2, max_value = 100)
-    dist_input = form.number_input("(min_dist)Выберите минимальное расстояние",min_value = 0.00,max_value= 0.99)
+    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =4,value=2)
+    neigh_input = form.number_input("(n_neighbors)Выберите количество соседей для каждого элемента",min_value = 2, max_value = 60,value = 15)
+    # dist_input = form.number_input("(min_dist)Выберите минимальное расстояние",min_value = 0.00,max_value= 0.99)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")
     if fin_button:
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-        st.pyplot(visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,n_neighbors=neigh_input,min_dist=dist_input,data = final_data))
+        visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,n_neighbors=neigh_input,data = final_data)
 if fin_op_1 =='TSNE':
     form =  st.form("Form2")
     fin_red = 'TSNE'
@@ -171,7 +171,7 @@ if fin_op_1 =='TSNE':
     fin_button = form.form_submit_button("Построить график")
     if fin_button:
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-        st.pyplot(visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,perplexity=perp_input,data = final_data))
+        visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,perplexity=perp_input,data = final_data)
     
 if fin_op_1=='PCA':
     form =  st.form("Form3")
@@ -183,7 +183,7 @@ if fin_op_1=='PCA':
         if comp_input>=1.00:
             comp_input = int(comp_input)
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-        st.pyplot(visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,data = final_data))
+        visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,data = final_data)
     
     
         
@@ -199,47 +199,140 @@ st.write(""" Теперь, проведя кластеризацию, посмо
 """)
 data = pd.read_csv('customer_clustering2.csv')
 data['Кластеры'] = vi.C
+# sns.set(style="darkgrid")
 
 distr = st.checkbox('Посмотрим распределение кластеров')
 if distr:
-    pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
-    pl = sns.countplot(x=data["Кластеры"], palette= pal)
+    # pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
+    color = sns.color_palette()[5]
+    pl = sns.countplot(x=data["Кластеры"])#, palette= pal[data['Кластеры']])
     pl.set_title("Распределение кластеров")
     st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
 
+    fig = go.Figure()
+    for i in range(vi.K):
+        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+        colors = 'rgb'+str(colors)
+        n_cl = data["Кластеры"].loc[data["Кластеры"] == i]
+        fig.add_trace(go.Bar(x=n_cl,y= data[data["Кластеры"]==i].count(),
+                             marker_color = colors,
+                             name = f"Кластер {i}",
+                             width=1))
+    #   layout = go.Layout(xaxis=dict(data["Кластеры"]),
+                        #    title = 'Распределение кластеров')
+        
+    fig.update_layout(
+        # tickangle = 90,
+        title = "Распределение кластеров",
+        title_text = f"Распределение покупок",
+        title_x = 0.5,
+        xaxis_title = "Кластеры",
+        yaxis_title = "Количество",
+        title_font = {"size":15},
+        # title_standoff = 25
+    )
+    st.plotly_chart(fig)
+    
+    
+    st.write("""Из получившегося графика мы можем уяснить, в каком соотношении сформировались наши кластеры.
+    Напомним, что каждый из сформированных нами кластеров состоит из записей в нашем датасете, и, соответственно, чем меньше график кластера, тем меньшее количество
+    значений входит в этот кластер.
+    """)
+
+
 st.subheader('Третий шаг')
-st.write("""Если расрпеделение кластеров показалось вам адекватным, если все кластеры приблизительно одинаковы и нет особенно маленьких или черезмерно больших,
-то можно переходить к слудющему шагу, а именно - смотреть зависимости кластеров от различных, интересующих нас значений. Нас прежде всего должно интересовать
-то, сколько покупатель тратит денег
+st.write(""" Теперь, давайте попробуем посмотреть, как интересующие нас данные распределились в получившихся кластерах. Нас прежде всего должно интересовать
+то, сколько покупатель тратит денег!
 """)
 spend = st.checkbox('Посмотрим, в каком кластере наибольшие траты')
 if spend:
     plt.figure()
     pl=sns.swarmplot(x=data["Кластеры"], y=data["Покупки"], color= "#CBEDDD", alpha=0.5 )
-    pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"], palette=pal)
+    pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"])#, palette=pal)
+    pl.set_title("Количество покупок")
     st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
-    st.write(""" По построенным графикам легко определить, покупательская способность какого кластера является для нас наиболее интересной
-    
+   
+    fig = go.Figure()
+
+    for i in range(vi.K):
+        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+        colors = 'rgb'+str(colors)
+        n_cl = data.loc[data["Кластеры"] == i]
+        fig.add_trace(
+            go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки"],
+            name = f'Кластер {i}',
+            boxpoints = 'all',
+            whiskerwidth =0.3,
+            line_width=1,
+            marker_size=3,
+            marker=dict(
+                color = colors
+            )))
+    fig.update_layout(
+        # tickangle = 90,
+        title = "Распределение кластеров",
+        title_text = "Количество покупок",
+        title_x = 0.5,
+        xaxis_title = "Кластеры",
+        yaxis_title = "Покупки",
+        title_font = {"size":20},
+        # title_standoff = 25
+        height= 800
+    )
+    st.plotly_chart(fig,height=800)
+    st.write(""" По построенным графикам легко определить, покупательская способность какого кластера является для нас наиболее интересной -
+    каждая точка на графике обозначает одну запись из датасета,т.е. одного клиента, а квадратные части - среднюю и распределение получившейся совокупности. 
+    Соответственно, чем выше центральный квадрат распределения, тем выше среднее значение. 
     """)
 
 st.subheader('Четвертый шаг')
-st.write(""" Теперь давайте попробуем выяснить, в каком кластере совершалось наибольшее количество покупок со скидкой
+st.write(""" Отлично, теперь мы знаем, какие кластеры нам наиболее интересны!
+Теперь давайте посмотрим, в каком кластере совершалось наибольшее количество покупок со скидкой.
 """)
 deals = st.checkbox('Посмотрим где нибольшее количество покупок со скидкой')
 if deals:
     plt.figure()
-    pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"], palette= pal)
+    pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"])#, palette= pal)
     pl.set_title("Количество покупок со скидкой")
     st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     st.pyplot(plt.show())
+    fig = go.Figure()
 
-    st.write("""С большой долей вероятности, если кластеризация проведена верно, то кластер, интересующий нас по наибольшему количеству
-    покупок, будет по крайней мере, в числе тех, что в наименьшей степени подвержен зависимости от покупки со скидкой. Пусть это будет небольшой подсказкой
+    for i in range(vi.K):
+        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+        colors = 'rgb'+str(colors)
+        n_cl = data.loc[data["Кластеры"] == i]
+        fig.add_trace(
+            go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки_со_скидкой"],
+            name = f'Кластер {i}',
+            boxpoints = 'all',
+            whiskerwidth =0.3,
+            line_width=1,
+            marker_size=3,
+            marker=dict(
+                color = colors
+            )))
+    fig.update_layout(
+        # tickangle = 90,
+        title = "Распределение кластеров",
+        title_text = "Количество покупок со скидкой",
+        title_x = 0.5,
+        xaxis_title = "Кластеры",
+        yaxis_title = "Покупки со скидкой",
+        title_font = {"size":20},
+        # title_standoff = 25
+        height= 600,
+        width = 800
+    )
+    st.plotly_chart(fig,height= 600,width = 800)
+    st.write("""С большой долей вероятности кластер, интересующий нас по наибольшему количеству
+    покупок, будет по крайней мере, в числе тех, что в наименьшей степени подвержен зависимости от покупки со скидкой. Пусть это будет небольшой подсказкой.
     """)
 st.subheader('Пятый шаг')
-st.write(""" Теперь, исходя из результатов предыдущего исследования, попробуем посмотреть, как расрпеделятся между кластерами все имеющися в датасете покупки клиентов
+st.write(""" Теперь, держа в памяти наиболее интересующие нас кластеры, 
+попробуем посмотреть, как расрпеделятся между кластерами все имеющися в датасете покупки клиентов
 """)
 
 purch = st.checkbox('Посмотрим на распределение покупок')
@@ -251,7 +344,12 @@ if purch:
         sns.jointplot(x=data[i],y = data["Покупки"],hue=data["Кластеры"])#, palette= pal)
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         st.pyplot(plt.show())
-
+    st.write("""Такой тип граффиков называется **joinplot**. По вертикали указывается сумма покупок, по горизонтали, количество покупок указанным способом.
+    Каждая точка по прежнему означает запись в датасете, т.е - клиента, а цвет этой точки зависит от кластера, который можно определить по легенде в правом верхнем
+    углу графика. По информации, полученной из графиков, мы можем, например, уяснить для себя, какая группа покупателей чаще пользуется покупками через интернет,
+    а какая чаше просто посещает сайт. Все это позволяет определить модель поведения клиента и понять, как увеличить количество
+    платёжеспособных покупателей.
+    """)
 st.subheader('Шестой шаг')
 st.write("""В последнем шаге нашего исследования нам необходимо, пользуясь данными о семейном положении, возрасте, образовании составить приблизительный 
 образ представителя каждого из кластеров
@@ -280,7 +378,7 @@ with st.form('Ответьте на все вопросы, чтобы успеш
 
     st.markdown('**Вопрос 2:** Опираясь на результаты второго и третьего шагов лабораторной, какие выводы можно сделать?')
     question_2_right_1 = st.checkbox('Кластер с превалирующим количеством трат часто является одним из самых малых по численности',value=False, key='5')
-    question_2_wrong_2= st.checkbox('Распределение трат в кластерах прям коррелирует с количеством элементов в кластерах', value=False, key='6')
+    question_2_wrong_2= st.checkbox('Распределение трат в кластерах прямо коррелирует с количеством элементов в кластерах', value=False, key='6')
     question_2_wrong_3= st.checkbox('Кластер наибольшего объема имеет наименьшее число покупок', value=False, key='7')
 
     st.markdown('**Вопрос 3:** Опираясь на результаты третьего и четвертого шагов лабораторной работы, какие выводы можно сделать?')
@@ -304,3 +402,5 @@ with st.form('Ответьте на все вопросы, чтобы успеш
             >Тест не сдан! Где-то была допущена ошибка.</h3>''', 
             unsafe_allow_html=True) 
 
+img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
+st.image(img_meme2,width = 400)
