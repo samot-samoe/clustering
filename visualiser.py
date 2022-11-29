@@ -362,17 +362,17 @@ class Visualise():
         global K 
         K = n_clusters
 
-        fig, (ax1) = plt.subplots(1,1)
-        fig.set_size_inches(18, 9)
-        cl = KMeans(n_clusters=n_clusters,random_state=10)
-        cluster_labels = cl.fit_predict(X_),
-        cluster_labels = cluster_labels[0]
+        # fig, (ax1) = plt.subplots(1,1)
+        # fig.set_size_inches(18, 9)
+        # cl = KMeans(n_clusters=n_clusters,random_state=10)
+        # cluster_labels = cl.fit_predict(X_),
+        # cluster_labels = cluster_labels[0]
         
-        silhouette_avg = silhouette_score(X_, cluster_labels)
-        colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
-        ax1.set_title(f"Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}")
-        ax1.set_xlabel(f"""Среднее значение коэффициента силуэт: {silhouette_avg}""")
-        ax1.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
+        # silhouette_avg = silhouette_score(X_, cluster_labels)
+        # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
+        # ax1.set_title(f"Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}")
+        # ax1.set_xlabel(f"""Среднее значение коэффициента силуэт: {silhouette_avg}""")
+        # ax1.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
 
         plot = go.Figure(data=[go.Scatter(
                          x=X_[:,0],

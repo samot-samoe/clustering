@@ -15,6 +15,10 @@ import matplotlib
 st.markdown('''<h1 style='text-align: center; color: black;'
             >Кластеризация. Часть 2</h1>''', 
             unsafe_allow_html=True)
+st.markdown('''<h1 style='text-align: center; color: black;'
+            >Профайлинг базы данных клиентов посредством кластеризации</h1> 
+            \n<h1>Часть 2: метрики и практическая часть.</h1>''', 
+            unsafe_allow_html=True)
 
 st.write("""
 Данный сримлит предназначен для ознакомления с самой распространённой задачей обучения без учителя, 
