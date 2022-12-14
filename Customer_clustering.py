@@ -50,7 +50,7 @@ st.write("""
 """)
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
-img_pipeline = Image.open('1_reanme.png') #
+img_pipeline = Image.open('1_rename.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') #width=450
 
 # pipeline = Image.open('images/Pipeline_2.png')

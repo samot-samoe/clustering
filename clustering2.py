@@ -155,8 +155,8 @@ form =  st.form("Form")
 if fin_op_1 == 'UMAP':
     form =  st.form("Form1")
     fin_red = 'UMAP'
-    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =3,value=2)
-    neigh_input = form.number_input("(n_neighbors)Выберите количество соседей для каждого элемента",min_value = 2, max_value = 60,value = 15)
+    comp_input = form.number_input("(n_components) Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =3,value=2)
+    neigh_input = form.number_input("(n_neighbors) Выберите количество соседей для каждого элемента",min_value = 2, max_value = 60,value = 15)
     # dist_input = form.number_input("(min_dist)Выберите минимальное расстояние",min_value = 0.00,max_value= 0.99)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")
@@ -166,8 +166,8 @@ if fin_op_1 == 'UMAP':
 if fin_op_1 =='TSNE':
     form =  st.form("Form2")
     fin_red = 'TSNE'
-    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 0,max_value =3)
-    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 0.00, max_value = 50.00)
+    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 1,max_value =3,value = 2)
+    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1.00, max_value = 50.00,value = 30.00)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")
     if fin_button:
@@ -177,12 +177,12 @@ if fin_op_1 =='TSNE':
 if fin_op_1=='PCA':
     form =  st.form("Form3")
     fin_red = 'PCA'
-    comp_input = form.number_input("Выберите кoличество компонентов/ отсечение по совокупной дисперии",min_value = 0.00,max_value =4.00)
+    comp_input = form.number_input("Выберите кoличество компонентов",min_value = 2,max_value =28,value = 2)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")
     if fin_button:
-        if comp_input>=1.00:
-            comp_input = int(comp_input)
+        # if comp_input>=1.00:
+            # comp_input = int(comp_input)
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,data = final_data)
     
