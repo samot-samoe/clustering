@@ -12,10 +12,10 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import matplotlib
 
- 
+visual = vi.Visualise()
            
 st.markdown('''<h1 style='text-align: center; color: black;'
-            >Профайлинг базы данных клиентов посредством кластеризации</h1> 
+            >Составление профилей клиентов посредством кластеризации</h1> 
             \n<h1>Часть 2: метрики и практическая часть.</h1>''', 
             unsafe_allow_html=True)
 
@@ -28,7 +28,7 @@ st.write("""
 
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
-img_pipeline = Image.open('2.png') #
+img_pipeline = Image.open('2_rename.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') 
 
 # my_data = pd.read_csv('final_customer_clustering_drop.csv')
@@ -59,8 +59,6 @@ st.write(
 оптимальное количество кластеров должно находится в месте "сгиба".
 """)
 elbow_option1 = st.number_input('Выберите максимальное количество кластеров',min_value =2,max_value=50)
-
-visual = vi.Visualise()
 
 button_elbow = st.button('Построить график')
 if button_elbow:
@@ -157,7 +155,7 @@ form =  st.form("Form")
 if fin_op_1 == 'UMAP':
     form =  st.form("Form1")
     fin_red = 'UMAP'
-    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =4,value=2)
+    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 2,max_value =3,value=2)
     neigh_input = form.number_input("(n_neighbors)Выберите количество соседей для каждого элемента",min_value = 2, max_value = 60,value = 15)
     # dist_input = form.number_input("(min_dist)Выберите минимальное расстояние",min_value = 0.00,max_value= 0.99)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
@@ -168,7 +166,7 @@ if fin_op_1 == 'UMAP':
 if fin_op_1 =='TSNE':
     form =  st.form("Form2")
     fin_red = 'TSNE'
-    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 0,max_value =4)
+    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 0,max_value =3)
     perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 0.00, max_value = 50.00)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")

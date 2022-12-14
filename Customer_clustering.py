@@ -18,7 +18,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 st.markdown('''<h1 style='text-align: center; color: black;'
-            >Профайлинг базы данных клиентов посредством кластеризации</h1> 
+            >Составление профилей клиентов посредством кластеризации</h1> 
             \n<h1>Часть 1: знакомство с методами и инструментами</h1>''', 
             unsafe_allow_html=True)
 img_meme_1 = Image.open("7qz.jpg")
@@ -50,7 +50,7 @@ st.write("""
 """)
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
-img_pipeline = Image.open('1.png') #
+img_pipeline = Image.open('1_reanme.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') #width=450
 
 # pipeline = Image.open('images/Pipeline_2.png')
@@ -375,8 +375,8 @@ if options_re == 'PCA':
     #   st.pyplot(visual.n_component(n_component = p,data = dataframe))
 
     form =  st.form("Form")
-    p = form.number_input("Выберите кoличество компонентов",min_value = 2,max_value =28,value=2)
-    h = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
+    p = form.number_input("Выберите кoличество компонентов ",min_value = 2,max_value =28,value=2)
+    h = form.number_input("Выберите количество кластеров ",min_value = 2,max_value= 15)
     button_pca = form.form_submit_button("Построить график для уменьшителя размерности PCA")
     if button_pca:
         visual = vi.Visualise()
@@ -407,8 +407,8 @@ if options_re == 't-SNE':
     
     """)
     form =  st.form("Form")
-    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 0,max_value =4,value = 2)
-    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 0.00, max_value = 50.00,value = 30.00)
+    comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 1,max_value =3,value = 2)
+    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1.00, max_value = 50.00,value = 30.00)
 
     h = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     button_pca = form.form_submit_button("Построить график для уменьшителя размерности t-SNE")
@@ -451,8 +451,8 @@ if options_re == 'UMAP':
    
     """)
     form =  st.form("Form")
-    comp_input = form.number_input("(n_components)Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 1,max_value =4,value = 2)
-    neigh_input = form.number_input("(n_neighbors)Выберите количество соседей для каждого элемента",min_value = 1, max_value = 100,value = 15)
+    comp_input = form.number_input("(n_components) Выберите кoличество компонентов,до которых будет сжато пространство",min_value = 1,max_value =3,value = 2)
+    neigh_input = form.number_input("(n_neighbors) Выберите количество соседей для каждого элемента",min_value = 1, max_value = 100,value = 15)
     # dist_input = form.number_input("(min_dist)Выберите минимальное расстояние",min_value = 0.00,max_value= 0.99)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
 
