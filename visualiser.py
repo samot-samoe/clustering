@@ -80,7 +80,7 @@ class Visualise():
                             showscale=True
     ))])
         plot.update_xaxes(
-            tickangle = 90,
+            # tickangle = 90,
             title_text = f"""Значения коэффициента силуэт для алгоритма {str(cluster).split('(')[0]} с количеством кластеров = {n_clusters}
              среднее значение коэффициента силуэт: {round(silhouette_avg,3)}""",
             title_font = {"size":11},
