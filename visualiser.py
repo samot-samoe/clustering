@@ -361,14 +361,14 @@ class Visualise():
         C = cluster_labels
         global K 
         K = n_clusters
-
+        silhouette_avg = silhouette_score(X_, cluster_labels)
         # fig, (ax1) = plt.subplots(1,1)
         # fig.set_size_inches(18, 9)
         # cl = KMeans(n_clusters=n_clusters,random_state=10)
         # cluster_labels = cl.fit_predict(X_),
         # cluster_labels = cluster_labels[0]
         
-        # silhouette_avg = silhouette_score(X_, cluster_labels)
+        
         # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
         # ax1.set_title(f"Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}")
         # ax1.set_xlabel(f"""Среднее значение коэффициента силуэт: {silhouette_avg}""")
@@ -388,7 +388,7 @@ class Visualise():
     ))])
         plot.update_layout(
             title=f"""Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}""",
-            xaxis_title = """Среднее значение коэффициента силуэт: {silhouette_avg:.3f}""",
+            xaxis_title = f"""Среднее значение коэффициента силуэт: {silhouette_avg:.3f}""",
             font = dict(size = 11)
             )
         # plot.update_xaxes(

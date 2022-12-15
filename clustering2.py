@@ -19,18 +19,30 @@ st.markdown('''<h1 style='text-align: center; color: black;'
             \n<h1>Часть 2: метрики и практическая часть.</h1>''', 
             unsafe_allow_html=True)
 
-st.write("""
-Данный сримлит предназначен для ознакомления с самой распространённой задачей обучения без учителя, 
-а именно - задачей кластеризации
+# st.write("""
+# Данный сримлит предназначен для ознакомления с самой распространённой задачей обучения без учителя, 
+# а именно - задачей кластеризации
 
-\nДанные подготовили сотрудники ЛИА РАНХиГС.
-""")
+# \nДанные подготовили сотрудники ЛИА РАНХиГС.
+# """)
 
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
 img_pipeline = Image.open('2_rename.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') 
-
+pipeline_description = st.expander("Описание пайплайна стримлита:")
+pipeline_description.markdown(
+    """
+\nЗелёным обозначены этапы, корректировка которых доступна студенту, красным - этапы, которые предобработаны и скорректированы сотрудником лаборатории.
+\n**1. Сбор данных:** был использован датасет из соревнований на платформе kaggle ([ссылка]())
+\n**2. Настройка параметров:** составители лабораторной работы провели настройку модели
+\n**3. Обучение модели:** студенту представляется возможность использовать настроенную модель для кластеризации
+\n**4. Настройка параметров:** также студенту предоставляется возможность самому корректировать некоторые параметры моделей
+\n**5. Веб-приложения Streamlit:** Кластеризация
+\n**Используемые библиотеки:** [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), [sklearn](https://matplotlib.org/stable/api/index.html), 
+[numpy](https://numpy.org/doc/stable/),[matplorlib](https://matplotlib.org), [umap](https://umap-learn.readthedocs.io/en/latest/), [plotly](https://plotly.com/python/),
+[seaborn](https://seaborn.pydata.org/).
+""")
 # my_data = pd.read_csv('final_customer_clustering_drop.csv')
 my_data = pd.read_csv('final_customer_clustering_encode.csv')
 #-------------------------О проекте-------------------------
@@ -204,37 +216,54 @@ data['Кластеры'] = vi.C
 
 distr = st.checkbox('Посмотрим распределение кластеров')
 if distr:
-    # pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
-    color = sns.color_palette()[5]
-    pl = sns.countplot(x=data["Кластеры"])#, palette= pal[data['Кластеры']])
-    pl.set_title("Распределение кластеров")
-    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    st.pyplot(plt.show())
+    # # pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
+    # color = sns.color_palette()[5]
+    # pl = sns.countplot(x=data["Кластеры"])#, palette= pal[data['Кластеры']])
+    # pl.set_title("Распределение кластеров")
+    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
+    # st.pyplot(plt.show())
 
-    fig = go.Figure()
-    for i in range(vi.K):
-        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-        colors = 'rgb'+str(colors)
-        n_cl = data["Кластеры"].loc[data["Кластеры"] == i]
-        fig.add_trace(go.Bar(x=n_cl,y= data[data["Кластеры"]==i].count(),
-                             marker_color = colors,
-                             name = f"Кластер {i}",
-                             width=1))
-    #   layout = go.Layout(xaxis=dict(data["Кластеры"]),
-                        #    title = 'Распределение кластеров')
+    # fig = go.Figure()
+    # for i in range(vi.K):
+    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+    #     colors = 'rgb'+str(colors)
+    #     n_cl = data["Кластеры"].loc[data["Кластеры"] == i]
+    #     fig.add_trace(go.Bar(x=n_cl,
+    #                             y= data[data["Кластеры"]==i].count(),
+    #                          marker_color = colors,
+    #                          name = f"Кластер {i}",
+    #                          width=1))
+    # #   layout = go.Layout(xaxis=dict(data["Кластеры"]),
+    #                     #    title = 'Распределение кластеров')
         
+    # fig.update_layout(
+    #     # tickangle = 90,
+    #     # histfunc = 'count',
+    #     title = "Распределение кластеров",
+    #     title_text = f"Распределение покупок",
+    #     title_x = 0.5,
+    #     xaxis_title = "Кластеры",
+    #     yaxis_title = "Количество",
+    #     title_font = {"size":15},
+    #     # title_standoff = 25
+    # )
+    # st.plotly_chart(fig)
+    #-------Second variation-----
+    fig = px.histogram(
+        data,x=data['Кластеры'],
+        color = data['Кластеры'],
+        histfunc='count'
+        )
+    # fig.update_xaxes(
+        # title=''.
+            # )
+    fig.update_yaxes(
+        title='Количество'
+        )
     fig.update_layout(
-        # tickangle = 90,
-        title = "Распределение кластеров",
-        title_text = f"Распределение покупок",
-        title_x = 0.5,
-        xaxis_title = "Кластеры",
-        yaxis_title = "Количество",
-        title_font = {"size":15},
-        # title_standoff = 25
-    )
+        bargap=0.3
+        )
     st.plotly_chart(fig)
-    
     
     st.write("""Из получившегося графика мы можем уяснить, в каком соотношении сформировались наши кластеры.
     Напомним, что каждый из сформированных нами кластеров состоит из записей в нашем датасете, и, соответственно, чем меньше график кластера, тем меньшее количество
@@ -248,41 +277,50 @@ st.write(""" Теперь, давайте попробуем посмотрет�
 """)
 spend = st.checkbox('Посмотрим, в каком кластере наибольшие траты')
 if spend:
-    plt.figure()
-    pl=sns.swarmplot(x=data["Кластеры"], y=data["Покупки"], color= "#CBEDDD", alpha=0.5 )
-    pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"])#, palette=pal)
-    pl.set_title("Количество покупок")
-    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    st.pyplot(plt.show())
+    # plt.figure()
+    # pl=sns.swarmplot(x=data["Кластеры"], y=data["Покупки"], color= "#CBEDDD", alpha=0.5 )
+    # pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"])#, palette=pal)
+    # pl.set_title("Количество покупок")
+    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
+    # st.pyplot(plt.show())
    
-    fig = go.Figure()
+    # fig = go.Figure()
 
-    for i in range(vi.K):
-        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-        colors = 'rgb'+str(colors)
-        n_cl = data.loc[data["Кластеры"] == i]
-        fig.add_trace(
-            go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки"],
-            name = f'Кластер {i}',
-            boxpoints = 'all',
-            whiskerwidth =0.3,
-            line_width=1,
-            marker_size=3,
-            marker=dict(
-                color = colors
-            )))
-    fig.update_layout(
-        # tickangle = 90,
-        title = "Распределение кластеров",
-        title_text = "Количество покупок",
-        title_x = 0.5,
-        xaxis_title = "Кластеры",
-        yaxis_title = "Покупки",
-        title_font = {"size":20},
-        # title_standoff = 25
-        height= 800
-    )
-    st.plotly_chart(fig,height=800)
+    # for i in range(vi.K):
+    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+    #     colors = 'rgb'+str(colors)
+    #     n_cl = data.loc[data["Кластеры"] == i]
+    #     fig.add_trace(
+    #         go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки"],
+    #         name = f'Кластер {i}',
+    #         boxpoints = 'all',
+    #         whiskerwidth =0.3,
+    #         line_width=1,
+    #         marker_size=3,
+    #         marker=dict(
+    #             color = colors
+    #         )))
+    # fig.update_layout(
+    #     # tickangle = 90,
+    #     title = "Распределение кластеров",
+    #     title_text = "Количество покупок",
+    #     title_x = 0.5,
+    #     xaxis_title = "Кластеры",
+    #     yaxis_title = "Покупки",
+    #     title_font = {"size":20},
+    #     # title_standoff = 25
+    #     height= 800
+    # )
+    # st.plotly_chart(fig,height=800)
+    #----------second variation---------------------
+    fig = px.box(
+                data,
+                x=data['Кластеры'],
+                y=data['Покупки'],
+                color=data['Кластеры'],
+                points='all'
+                )
+    st.plotly_chart(fig)
     st.write(""" По построенным графикам легко определить, покупательская способность какого кластера является для нас наиболее интересной -
     каждая точка на графике обозначает одну запись из датасета,т.е. одного клиента, а квадратные части - среднюю и распределение получившейся совокупности. 
     Соответственно, чем выше центральный квадрат распределения, тем выше среднее значение. 
@@ -328,6 +366,13 @@ if deals:
         width = 800
     )
     st.plotly_chart(fig,height= 600,width = 800)
+
+    fig = px.box(
+        data,
+        x=data['Кластеры'],
+        y=data['Покупки со скидкой'],
+        color = data['Кластеры']
+    )
     st.write("""С большой долей вероятности кластер, интересующий нас по наибольшему количеству
     покупок, будет по крайней мере, в числе тех, что в наименьшей степени подвержен зависимости от покупки со скидкой. Пусть это будет небольшой подсказкой.
     """)
