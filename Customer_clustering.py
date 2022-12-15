@@ -1,5 +1,4 @@
 # импортируем библиотеки
-
 from email import header
 import streamlit as st
 from PIL import Image
@@ -8,21 +7,28 @@ import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
-
 import warnings
 import sys
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 
-import plotly.graph_objects as go
-import plotly.express as px
+    
 
 st.markdown('''<h1 style='text-align: center; color: black;'
             >Составление профилей клиентов посредством кластеризации</h1> 
             \n<h1>Часть 1: знакомство с методами и инструментами</h1>''', 
             unsafe_allow_html=True)
 img_meme_1 = Image.open("7qz.jpg")
-st.image(img_meme_1,use_column_width='auto')
+img_meme_2 = Image.open("1_ravEQiopKoM9RgxUhxbP1Q.jpeg")
+# st.image(img_meme_1,use_column_width='auto')
+# images = ['7qz.jpg','1_ravEQiopKoM9RgxUhxbP1Q.jpeg']
+col1,mid,col2= st.columns([30,1,20])
+with col1:
+  st.image(img_meme_1)
+with col2:
+  st.image(img_meme_2)
+
+# st.image(images, use_column_width=True, caption=["some generic text"] * len(images))
 st.markdown('''<h2 style='text-align: center; color: black;'
             >Актуальность тематики</h2>''', 
             unsafe_allow_html=True)
@@ -35,7 +41,7 @@ st.write(""" \n##### **Кому будет полезна эта лаборат�
 \n* **Студентам направленний, связанных с маркетингом и рекламой** 
 \nДанная технология будет полезна в вопросах формирования рекламно-маркетинговой стратегии.
 \n* **Студентам других специальностей:**
-\nДля общего понимания современных технологий в сфере работы с большим количеством неупорядоченных данных.
+\nДля общего понимания современных технологий в сфере работы с большим количеством неразмеченных данных.
 """)
 
 
@@ -107,9 +113,6 @@ st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
 img_pipeline = Image.open('1_rename.png') #
 st.image(img_pipeline, use_column_width='auto', caption='Общий пайплайн для приложения') #width=450
-
-# pipeline = Image.open('images/Pipeline_2.png')
-# st.image(pipeline)
 
 #-------------------------О проекте/Пайплайн-------------------------
 
@@ -463,7 +466,7 @@ if options_re == 't-SNE':
     """)
     form =  st.form("Form")
     comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 1,max_value =3,value = 2)
-    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1.00, max_value = 50.00,value = 30.00)
+    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1, max_value = 50,value = 30)
 
     h = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     button_pca = form.form_submit_button("Построить график для уменьшителя размерности t-SNE")
@@ -517,17 +520,18 @@ if options_re == 'UMAP':
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         visual.reductor_vis(reductor = 'UMAP',n_clusters = cl_input,n_components = comp_input,n_neighbors = neigh_input,data = dataframe)
 
-img_meme2 = Image.open('1_ravEQiopKoM9RgxUhxbP1Q.jpeg')
-st.image(img_meme2,width = 400,caption = "В нашем стримлите мы пытаемся разосновать посыл этой шутки")#use_column_width='auto')
+# img_meme2 = Image.open('1_ravEQiopKoM9RgxUhxbP1Q.jpeg')
+# st.image(img_meme2,width = 400,caption = "В нашем стримлите мы пытаемся разосновать посыл этой шутки")#use_column_width='auto')
 #--------------------------------------Clustering-----------------------------------------------------
 
 dataframe = pd.read_csv('final_customer_clustering_drop.csv')
 st.subheader('Кластеризаторы')
 st.write("""
-Начать разговор о задачах кластеризации стоит собственно с алгоритмов кластеризации. Ниже представленны те алгоритмы, 
+Теперь, переходя к алгоритмам кластеризации. Ниже представленны те алгоритмы, 
 которые автору показались наиболее часто используемыми, а именно [KMeans](https://wiki.loginom.ru/articles/k-means.html) и [Agglomerative Clustering](https://machinelearningmastery.ru/machine-learning-algorithms-part-12-hierarchical-agglomerative-clustering-example-in-python-1e18e0075019/)
 . Об их работе в сжатом виде можно прочесть ниже, более подробную информацию можно получить перейдя по ссылке
-в конце описания работы кластеризатора
+в конце описания работы кластеризатора. 
+\nДавайте посмотрим, как работают кластеризаторы без уменьшителей размерности, которые мы обсуждали выше.
 """)
 options_cl = st.selectbox('Выберите кластеризатор',
   ('KMeans','AgglomerativeClustering')) #'SpectralClustering''DBSCAN'

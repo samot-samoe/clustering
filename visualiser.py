@@ -138,8 +138,9 @@ class Visualise():
                             showscale=True
     ))])
         plot.update_xaxes(
-            tickangle = 90,
-            title_text = f"""Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} <br> при n_components = {n_components}.Среднее значение коэффициента силуэт: {silhouette_avg:.4f}""",
+            
+            title_text = f"""Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} <br> при n_components = {n_components}. 
+            Среднее значение коэффициента силуэт: {silhouette_avg:.4f}""",
             title_font = {"size":11},
             # title_standoff = 25
 
@@ -239,7 +240,7 @@ class Visualise():
        
         silhouette_avg = silhouette_score(X_, cluster_labels)
         fig = make_subplots(rows=1, cols=2,subplot_titles=(f'График "Силуэт" для {n_clusters} кластеров.',"Визуализация кластеризированных значений"))
-        fig['layout']['xaxis1'].update(title=f'Значения коэффициента "силуэт"={silhouette_avg:.3f}',range=[-0.1,1])
+        fig['layout']['xaxis1'].update(title=f'Значения коэффициента "силуэт" = {silhouette_avg:.3f}',range=[-0.1,1])
         fig['layout']['yaxis1'].update(title='Метка кластера')
 
         # silhouette_avg = silhouette_score(X_, cluster_labels)

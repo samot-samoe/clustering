@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt 
 import numpy as np 
@@ -10,7 +9,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-import matplotlib
+
 
 visual = vi.Visualise()
            
@@ -25,6 +24,78 @@ st.markdown('''<h1 style='text-align: center; color: black;'
 
 # \nДанные подготовили сотрудники ЛИА РАНХиГС.
 # """)
+st.markdown('''<h2 style='text-align: center; color: black;'
+            >Актуальность тематики</h2>''', 
+            unsafe_allow_html=True)
+
+st.write(""" \n##### **Кому будет полезна эта лабораторная работа и почему?**
+\n* **Студентам банковских специальностей:**
+\nДля ознакомления с современными технологиями, оптимизирующими различные процессы в банковской области.
+\n* **Студентам отделений филологии:**
+\nТак как данная технология полезна для поиска семантически близких слов и текстов.
+\n* **Студентам направленний, связанных с маркетингом и рекламой** 
+\nДанная технология будет полезна в вопросах формирования рекламно-маркетинговой стратегии.
+\n* **Студентам других специальностей:**
+\nДля общего понимания современных технологий в сфере работы с большим количеством неразмеченных данных.
+""")
+
+
+#--------------- Профили----------
+st.write('''\n##### **А если у меня другой профиль?**
+\nВо-первых, всегда полезно знать о практическом применении современных информационных технологий. Во-вторых, в ходе выполнения работы вы сможете изучить этапы разработки решения с применением искусственного интеллекта. 
+А для того, чтобы разработать и внедрить в деятельность организации такое решение, требуется вовлечение в команду специалистов разного уровня и разных ролей: как IT-специальностей, так и других профилей.
+''')
+with st.expander('Роли в проекте для специалистов различных сфер:'):
+    st.write('''
+    \n 1. Проанализировать ситуацию и предложить развивать подобный технически проект, оценить риски, и участвовать в промежуточных результатах могли бы:
+    \n\t * Аналитик-международник (международный аналитик)
+    \n\t * Политолог, политический аналитик
+    \n\t * Политтехнолог
+    \n\t * Менеджер по связям с общественностью (PR)
+    \n\t * Финансовый менеджер
+    \n\t * GR-менеджер
+    \n\t * Руководитель по цифровой трансформации (CDO – Chief Digital Officer)
+    \n\t * Development manager (менеджер по развитию)
+    \n\t * Digital-стратег
+
+    \n 2. Управлять проектом, организовывать и развивать его могут:
+    \n\t * Директор по данным, Chief Data Officer (CDO)
+    \n\t * Менеджер проекта
+    ''')
+with st.expander('Роли в проекте для IT-специалистов:'):
+        st.write('''
+        \n 1. Собрать, подготовить и обработать данные для проекта могли бы:
+        \n\t * Аналитик данных (Data Analyst)
+        \n\t * Data Mining Specialist: специалист по интеллектуальной обработке данных
+        \n\t * Data Scientist: учёный по данным, исследователь данных
+        \n\t * Big Data Analyst: специалист по анализу больших данных
+
+        \n 2. Разработать серверную инфраструктуру, размещение данных и всей схемы решения, обеспечить безопасность на техническом уровне, обеспечить доступ пользователей к проекту могли бы:
+        \n\t * DevOps (на данный момент нет в учебном процессе РАНХиГС)
+        \n\t * MLOps (на данный момент нет в учебном процессе РАНХиГС)
+
+        ''')  
+#----------------------Цель и содержание-----------------------
+st.markdown('''<h2 style='text-align: center; color: black;'
+            >Цель и содержание кейса</h2>''', 
+            unsafe_allow_html=True)
+st.write("""
+Данный стримлит предназначен для ознакомления с самой распространённой задачей обучения без учителя, а именно - задачей кластеризации. Основной задачей 
+кластеризации является разбиение совокупности объектов на однородные группы и последующего поиска изначально неочевидных, скрытых закономерностей.
+\nЦелью кластеризации является получение нового знания из предоставленных данных. Список прикладных областей, в которых применяется 
+кластеризация включает в себя: 
+\n * сегментацию изображений, 
+\n * анализ текстов, 
+\n * маркетинг, 
+\n * защиту от фрода и многое другое. 
+\nЧасто кластеризация является первым шагом при анализе данных. Помимо этого, целью кластеризации может также быть сжатие данных, и уменьшение изначальной выборки путём 
+вычленения из каждого кластера наиболее типичных представителей, а также выявление шума - объектов, которые не подходят ни к одному кластеру.
+\nВ анализе данных покупателей кластеризация может помочь 
+лучше узнать целевую аудиторию, чтобы в дальнейшем опираться на интересы этих выявленных групп, находя индивидуальный подход к каждому клиенту, что 
+в свою очередь должно привести к повышению лояльности клиента, и, как следствие - **прибыли**. Такой тип работы с данными клиентов, целью которых является 
+выявление освновных своих клиентов и называется [профайлинг](https://ru.wiktionary.org/wiki/%D0%BF%D1%80%D0%BE%D1%84%D0%B0%D0%B9%D0%BB%D0%B8%D0%BD%D0%B3#:~:text=%D0%97%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D0%B5,%D0%BF%D1%80%D0%B8%D0%B7%D0%BD%D0%B0%D0%BA%D0%BE%D0%B2%2C%20%D0%BD%D0%B5%D0%B2%D0%B5%D1%80%D0%B1%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%B8%20%D0%B2%D0%B5%D1%80%D0%B1%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F.). Также, данные, полученные при помощи кластеризации, можно превратить в 
+рекомендательную систему, не раздражая клиентов рассылками, но предлагая только те товары, которые им действительно нужны.""")
+
 
 st.markdown('''<h2 style='text-align: left; color: black;'
             >Пайплайн лабораторной работы:</h2>''', unsafe_allow_html=True)
@@ -57,8 +128,6 @@ expander_bar.markdown(
 [PCA-1](https://habr.com/ru/post/304214/),[PCA-2](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D1%85_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82)
 [UMAP]()
 """)
-#------------------
-
 
 #-----------------Elbow Visualization---------------
 st.subheader('Определение количества кластеров')
@@ -121,21 +190,12 @@ fin_button = form.form_submit_button("Проверить")
 # button_cluster = st.button('Построить')
 if fin_button:
     # nerek 
-    visual = vi.Visualise()
+    
     st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
     # st.write(p1)
     visual.visualizer(cluster = p1,reductor = p2,n_clusters = p3,data = my_data)
     # st.write(vi.C)
 
-# #-----------------adjusted_rand_score Block---------------
-
-# st.subheader('Проверим на реальных классах')
-px.data.tips()
-# """)
-# button_adjusted = st.button('Проверить')
-# if button_adjusted:
-#     visual = vi.Visualise()
-#     st.write(visual.adj(y=np.asarray(y_),y_true = vi.C))
 
 #-------------------laboratory Block--------------------
 final_data = pd.read_csv('final_customer_clustering_drop.csv')
@@ -179,7 +239,7 @@ if fin_op_1 =='TSNE':
     form =  st.form("Form2")
     fin_red = 'TSNE'
     comp_input = form.number_input("Выберите кoличество компонентов, до которых будет сжато пространство",min_value = 1,max_value =3,value = 2)
-    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1.00, max_value = 50.00,value = 30.00)
+    perp_input = form.number_input("Выберите количество ближайших соседей",min_value = 1, max_value = 50,value = 30)
     cl_input = form.number_input("Выберите количество кластеров",min_value = 2,max_value= 15)
     fin_button = form.form_submit_button("Построить график")
     if fin_button:
@@ -320,6 +380,15 @@ if spend:
                 color=data['Кластеры'],
                 points='all'
                 )
+    fig.update_layout(
+            title = {
+                    'text':"Количество покупок",
+                    'y':0.99,
+                    'x':0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'
+                    }
+    )
     st.plotly_chart(fig)
     st.write(""" По построенным графикам легко определить, покупательская способность какого кластера является для нас наиболее интересной -
     каждая точка на графике обозначает одну запись из датасета,т.е. одного клиента, а квадратные части - среднюю и распределение получившейся совокупности. 
@@ -332,47 +401,60 @@ st.write(""" Отлично, теперь мы знаем, какие класт
 """)
 deals = st.checkbox('Посмотрим где нибольшее количество покупок со скидкой')
 if deals:
-    plt.figure()
-    pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"])#, palette= pal)
-    pl.set_title("Количество покупок со скидкой")
-    st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    st.pyplot(plt.show())
-    fig = go.Figure()
+    # plt.figure()
+    # pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"])#, palette= pal)
+    # pl.set_title("Количество покупок со скидкой")
+    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
+    # st.pyplot(plt.show())
+    # fig = go.Figure()
 
-    for i in range(vi.K):
-        colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-        colors = 'rgb'+str(colors)
-        n_cl = data.loc[data["Кластеры"] == i]
-        fig.add_trace(
-            go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки_со_скидкой"],
-            name = f'Кластер {i}',
-            boxpoints = 'all',
-            whiskerwidth =0.3,
-            line_width=1,
-            marker_size=3,
-            marker=dict(
-                color = colors
-            )))
-    fig.update_layout(
-        # tickangle = 90,
-        title = "Распределение кластеров",
-        title_text = "Количество покупок со скидкой",
-        title_x = 0.5,
-        xaxis_title = "Кластеры",
-        yaxis_title = "Покупки со скидкой",
-        title_font = {"size":20},
-        # title_standoff = 25
-        height= 600,
-        width = 800
-    )
-    st.plotly_chart(fig,height= 600,width = 800)
+    # for i in range(vi.K):
+    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
+    #     colors = 'rgb'+str(colors)
+    #     n_cl = data.loc[data["Кластеры"] == i]
+    #     fig.add_trace(
+    #         go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки_со_скидкой"],
+    #         name = f'Кластер {i}',
+    #         boxpoints = 'all',
+    #         whiskerwidth =0.3,
+    #         line_width=1,
+    #         marker_size=3,
+    #         marker=dict(
+    #             color = colors
+    #         )))
+    # fig.update_layout(
+    #     # tickangle = 90,
+    #     title = "Распределение кластеров",
+    #     title_text = "Количество покупок со скидкой",
+    #     title_x = 0.5,
+    #     xaxis_title = "Кластеры",
+    #     yaxis_title = "Покупки со скидкой",
+    #     title_font = {"size":20},
+    #     # title_standoff = 25
+    #     height= 600,
+    #     width = 800
+    # )
+    # st.plotly_chart(fig,height= 600,width = 800)
 
     fig = px.box(
         data,
         x=data['Кластеры'],
-        y=data['Покупки со скидкой'],
-        color = data['Кластеры']
+        y=data['Покупки_со_скидкой'],
+        color = data['Кластеры'],
+        points='all'
     )
+    fig.update_layout(
+            title = {
+                    'text':"Количество покупок со скидкой",
+                    'y':0.99,
+                    'x':0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top',
+                    },
+                    xaxis_title = "Кластеры",
+                    yaxis_title = "Покупки со скидкой"
+    )
+    st.plotly_chart(fig)
     st.write("""С большой долей вероятности кластер, интересующий нас по наибольшему количеству
     покупок, будет по крайней мере, в числе тех, что в наименьшей степени подвержен зависимости от покупки со скидкой. Пусть это будет небольшой подсказкой.
     """)
@@ -390,12 +472,27 @@ if purch:
         sns.jointplot(x=data[i],y = data["Покупки"],hue=data["Кластеры"])#, palette= pal)
         st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
         st.pyplot(plt.show())
+
+    # -----alternative version
+    # 
+    # for i in Places:
+        fig.add_trace(data, x=data[i],y= data['Покупки'],color = data['Кластеры'],marginal = 'box')
+        # fig = px.histogram(
+            # data, 
+            # x=data[i],
+            # y= data['Покупки'],
+            # color = data['Кластеры'],
+            # marginal = 'box',
+            # histfunc='count',
+            # )
+        # st.plotly_chart(fig)
     st.write("""Такой тип граффиков называется **joinplot**. По вертикали указывается сумма покупок, по горизонтали, количество покупок указанным способом.
     Каждая точка по прежнему означает запись в датасете, т.е - клиента, а цвет этой точки зависит от кластера, который можно определить по легенде в правом верхнем
     углу графика. По информации, полученной из графиков, мы можем, например, уяснить для себя, какая группа покупателей чаще пользуется покупками через интернет,
     а какая чаше просто посещает сайт. Все это позволяет определить модель поведения клиента и понять, как увеличить количество
     платёжеспособных покупателей.
     """)
+
 st.subheader('Шестой шаг')
 st.write("""В последнем шаге нашего исследования нам необходимо, пользуясь данными о семейном положении, возрасте, образовании составить приблизительный 
 образ представителя каждого из кластеров
