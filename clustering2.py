@@ -322,7 +322,15 @@ if distr:
         title='Количество'
         )
     fig.update_layout(
-        bargap=0.3
+        bargap=0.3,
+        title = {
+                'text':"Распределение кластеров",
+                'y':0.99,
+                'x':0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'
+                }
+    
         )
     st.plotly_chart(fig)
     
