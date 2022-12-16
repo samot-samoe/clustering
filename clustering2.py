@@ -117,17 +117,17 @@ pipeline_description.markdown(
 # my_data = pd.read_csv('final_customer_clustering_drop.csv')
 my_data = pd.read_csv('final_customer_clustering_encode.csv')
 #-------------------------О проекте-------------------------
-expander_bar = st.expander("Перед тем, как начать:")
-expander_bar.markdown(
-    """
-\n Задача *кластеризации* - задача обучения без учителя, заключающаяся в разобщении данных на несколько групп, именуемых кластерами
+# expander_bar = st.expander("Перед тем, как начать:")
+# expander_bar.markdown(
+#     """
+# \n Задача *кластеризации* - задача обучения без учителя, заключающаяся в разобщении данных на несколько групп, именуемых кластерами
 
-\n**Используемые библиотеки:** [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), 
-[matplotlib](https://matplotlib.org/stable/api/index.html), [scikit-learn](https://scikit-learn.org/stable/#).
-\n **Полезно почитать:**[Основные методы кластеризации данных](https://habr.com/ru/company/ods/blog/325654/)
-[PCA-1](https://habr.com/ru/post/304214/),[PCA-2](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D1%85_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82)
-[UMAP]()
-""")
+# \n**Используемые библиотеки:** [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), 
+# [matplotlib](https://matplotlib.org/stable/api/index.html), [scikit-learn](https://scikit-learn.org/stable/#).
+# \n **Полезно почитать:**[Основные методы кластеризации данных](https://habr.com/ru/company/ods/blog/325654/)
+# [PCA-1](https://habr.com/ru/post/304214/),[PCA-2](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D1%85_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82)
+# [UMAP]()
+# """)
 
 #-----------------Elbow Visualization---------------
 st.subheader('Определение количества кластеров')
@@ -196,7 +196,8 @@ if fin_button:
     visual.visualizer(cluster = p1,reductor = p2,n_clusters = p3,data = my_data)
     # st.write(vi.C)
 
-
+img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
+st.image(img_meme2,width = 400)
 #-------------------laboratory Block--------------------
 final_data = pd.read_csv('final_customer_clustering_drop.csv')
 
@@ -476,7 +477,7 @@ if purch:
     # -----alternative version
     # 
     # for i in Places:
-        fig.add_trace(data, x=data[i],y= data['Покупки'],color = data['Кластеры'],marginal = 'box')
+        # fig.add_trace(data, x=data[i],y= data['Покупки'],color = data['Кластеры'],marginal = 'box')
         # fig = px.histogram(
             # data, 
             # x=data[i],
@@ -545,5 +546,5 @@ with st.form('Ответьте на все вопросы, чтобы успеш
             >Тест не сдан! Где-то была допущена ошибка.</h3>''', 
             unsafe_allow_html=True) 
 
-img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
-st.image(img_meme2,width = 400)
+# img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
+# st.image(img_meme2,width = 400)
