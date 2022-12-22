@@ -23,9 +23,7 @@ from plotly.subplots import make_subplots
 dirname = os.path.dirname(__file__)
 C = 0
 K = 0
-"""
-Был обнаружен баг в частях кода, касающийся переменной cluster_labels, а именно , благодаря которой создавался tuple
-"""
+
 
 class Visualise():
     
@@ -33,8 +31,7 @@ class Visualise():
         pass
 
     def proto_vis(self,cluster,data,n_clusters=2):
-        # encoder = PolynomialEncoder(cols=['Graduation'])
-        # new_data = encoder.fit_transoform(data,verbose=1)
+
 
         X = StandardScaler().fit_transform(data)
 
@@ -57,15 +54,7 @@ class Visualise():
             cluster_labels = cl.fit_predict(X)
             colors = cm.nipy_spectral(cluster_labels.astype(float) / len(np.unique(cluster_labels.astype(float))))
 
-        # fig, (ax1) = plt.subplots(1,1)
-        # fig.set_size_inches(18, 9)
-        # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
-        # ax1.set_title(f"Визуализация кластеризации для {str(cl).split('(')[0]}")
-        # silhouette_avg = silhouette_score(X, cluster_labels)
-        # ax1.set_xlabel(f"""Значения коэфициентся силуэт \n Для алгоритма {str(cluster).split('(')[0]} с количеством кластеров =
-        #     {n_clusters} среднее значение коэффициента силуэт: {round(silhouette_avg,2)}""")
-
-        # ax1.scatter(X[:, 0], X[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
+     
         silhouette_avg = silhouette_score(X, cluster_labels)
         plot = go.Figure(data=[go.Scatter(
                          x=X[:,0],
@@ -89,10 +78,7 @@ class Visualise():
         )
 
         st.plotly_chart(plot)
-        # plotly_fig = tls.mpl_to_plotly(fig) ## convert
-        # iplot(plotly_fig)
-        # plt = px.scatter(X[:, 0], X[:, 1],color=colors)
-        # plt.show()
+        
 
 
         
@@ -119,11 +105,7 @@ class Visualise():
         cluster_labels = cluster_labels[0]
         silhouette_avg = silhouette_score(X_, cluster_labels)
 
-        # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
-        # ax1.set_title(f"Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}")
-        # ax1.set_xlabel(f"""Среднее значение коэффициента силуэт: {round(silhouette_avg, 2)}""")
-
-        # ax1.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
+ # ax1.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
         plot = go.Figure(data=[go.Scatter(
                          x=X_[:,0],
                          y=X_[:,1],
@@ -177,64 +159,7 @@ class Visualise():
             cl = AgglomerativeClustering(n_clusters=n_clusters)
             cluster_labels = cl.fit_predict(X_)
         
-        # global C    # Needed to modify global copy of globvar
-        # C = cluster_labels
-
-        # fig, (ax1, ax2) = plt.subplots(1, 2)
-        # fig.set_size_inches(18, 9)
-        # ax1.set_xlim([-0.1, 1])
-        # ax1.set_ylim([0, len(X) + (n_clusters + 1) * 10])
         
-
-        # clusterer = cl
-        # cluster_labels = clusterer.fit_predict(X_)
-        
-        # silhouette_avg = silhouette_score(X_, cluster_labels)
-        # print(
-        #     f"Для алгоритма {str(cluster).split('(')[0]} с количеством кластеров =",
-        #     n_clusters,
-        #     "среднее значение коэффициента силуэт:",
-        #     round(silhouette_avg, 2),
-        # )
-        # sample_silhouette_values = silhouette_samples(X, cluster_labels)
-        # y_lower = 10
-
-        # for i in range(n_clusters):
-        #     # Aggregate the silhouette scores for samples belonging to
-        #     # cluster i, and sort them
-        #     ith_cluster_silhouette_values = sample_silhouette_values[cluster_labels == i]
-        #     ith_cluster_silhouette_values.sort()
-        #     size_cluster_i = ith_cluster_silhouette_values.shape[0]
-        #     y_upper = y_lower + size_cluster_i
-        #     color = cm.nipy_spectral(float(i) / n_clusters)
-        #     ax1.fill_betweenx(
-        #         np.arange(y_lower, y_upper),
-        #         0,
-        #         ith_cluster_silhouette_values,
-        #         facecolor=color,
-        #         edgecolor=color,
-        #         alpha=0.7,
-        #     )
-        #     # Label the silhouette plots with their cluster numbers at the middle
-        #     ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
-        #     # Compute the new y_lower for next plot
-        #     y_lower = y_upper + 10  # 10 for the 0 samples
-        # # Label the silhouette plots with their cluster numbers at the middle
-        # ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
-        # # Compute the new y_lower for next plot
-        # y_lower = y_upper + 10  # 10 for the 0 samples
-        # ax1.set_title(f"График силуэт для {str(cluster).split('(')[0]}")
-        # ax1.set_xlabel(f"""Значения коэфициентся силуэт \n Для алгоритма {str(cluster).split('(')[0]} с количеством кластеров =
-        #     {n_clusters} среднее значение коэффициента силуэт: {silhouette_avg}""")
-        # ax1.set_ylabel("Лейбл кластера")
-        # # The vertical line for average silhouette score of all the values
-        # ax1.axvline(x=silhouette_avg, color="red", linestyle="--")
-        # ax1.set_yticks([])  # Clear the yaxis labels / ticks
-        # ax1.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
-        # # 2nd Plot showing the actual clusters formed
-        # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
-        # ax2.set_title(f"Визуализация кластеризации для {str(cl).split('(')[0]} при помощи уменьшителя размерности {str(r).split('(')[0]}")
-        # ax2.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
 
         #-----------------------plotly-------------------------------
        
@@ -243,13 +168,7 @@ class Visualise():
         fig['layout']['xaxis1'].update(title=f'Значения коэффициента "силуэт" = {silhouette_avg:.3f}',range=[-0.1,1])
         fig['layout']['yaxis1'].update(title='Метка кластера')
 
-        # silhouette_avg = silhouette_score(X_, cluster_labels)
-        # print(
-        #     f"Для алгоритма {str(cluster).split('(')[0]} с количеством кластеров =",
-        #     n_clusters,
-        #     "среднее значение коэффициента силуэт:",
-        #     round(silhouette_avg, 2),
-        # )
+     
         sample_silhouette_values = silhouette_samples(X, cluster_labels)
         y_lower = 10
         
@@ -308,7 +227,7 @@ class Visualise():
             fig.append_trace(clusters,1,2)
         fig.update_layout()
         st.plotly_chart(fig)
-        # гипотетически есть ещё один способ синхронизировать цвета, на этот раз при помощи cluster_labels[clusterlabels==i] в верхнем цикле и cluster_labels в визуализации второго графика
+        #  ещё один способ синхронизировать цвета, на этот раз при помощи cluster_labels[clusterlabels==i] в верхнем цикле и cluster_labels в визуализации второго графика
         
     
 
@@ -363,17 +282,7 @@ class Visualise():
         global K 
         K = n_clusters
         silhouette_avg = silhouette_score(X_, cluster_labels)
-        # fig, (ax1) = plt.subplots(1,1)
-        # fig.set_size_inches(18, 9)
-        # cl = KMeans(n_clusters=n_clusters,random_state=10)
-        # cluster_labels = cl.fit_predict(X_),
-        # cluster_labels = cluster_labels[0]
-        
-        
-        # colors = cm.nipy_spectral(cluster_labels.astype(float) / n_clusters)
-        # ax1.set_title(f"Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}")
-        # ax1.set_xlabel(f"""Среднее значение коэффициента силуэт: {silhouette_avg}""")
-        # ax1.scatter(X_[:, 0], X_[:, 1], s=30, lw=0, alpha=0.99, c=colors, edgecolor="k")
+       
 
         plot = go.Figure(data=[go.Scatter(
                          x=X_[:,0],
@@ -392,12 +301,7 @@ class Visualise():
             xaxis_title = f"""Среднее значение коэффициента силуэт: {silhouette_avg:.3f}""",
             font = dict(size = 11)
             )
-        # plot.update_xaxes(
-        #     tickangle = 90,
-        #     title_text = f"""Визуализация кластеризации методом KMeans при использовании уменьшителя размерности {reductor} \n при n_components = {n_components}
-        #      Среднее значение коэффициента силуэт: {silhouette_avg:.3f}""",
-        #     title_font = {"size":11},
-        #     # title_standoff = 25
+        
 
         
 

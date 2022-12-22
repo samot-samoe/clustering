@@ -18,12 +18,7 @@ st.markdown('''<h1 style='text-align: center; color: black;'
             \n<h1>Часть 2: метрики и практическая часть.</h1>''', 
             unsafe_allow_html=True)
 
-# st.write("""
-# Данный сримлит предназначен для ознакомления с самой распространённой задачей обучения без учителя, 
-# а именно - задачей кластеризации
 
-# \nДанные подготовили сотрудники ЛИА РАНХиГС.
-# """)
 st.markdown('''<h2 style='text-align: center; color: black;'
             >Актуальность тематики</h2>''', 
             unsafe_allow_html=True)
@@ -114,20 +109,10 @@ pipeline_description.markdown(
 [numpy](https://numpy.org/doc/stable/),[matplorlib](https://matplotlib.org), [umap](https://umap-learn.readthedocs.io/en/latest/), [plotly](https://plotly.com/python/),
 [seaborn](https://seaborn.pydata.org/).
 """)
-# my_data = pd.read_csv('final_customer_clustering_drop.csv')
+
 my_data = pd.read_csv('final_customer_clustering_encode.csv')
 #-------------------------О проекте-------------------------
-# expander_bar = st.expander("Перед тем, как начать:")
-# expander_bar.markdown(
-#     """
-# \n Задача *кластеризации* - задача обучения без учителя, заключающаяся в разобщении данных на несколько групп, именуемых кластерами
 
-# \n**Используемые библиотеки:** [streamlit](https://docs.streamlit.io/library/get-started), [pandas](https://pandas.pydata.org/docs/user_guide/index.html), 
-# [matplotlib](https://matplotlib.org/stable/api/index.html), [scikit-learn](https://scikit-learn.org/stable/#).
-# \n **Полезно почитать:**[Основные методы кластеризации данных](https://habr.com/ru/company/ods/blog/325654/)
-# [PCA-1](https://habr.com/ru/post/304214/),[PCA-2](https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D1%8B%D1%85_%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%BD%D0%B5%D0%BD%D1%82)
-# [UMAP]()
-# """)
 
 #-----------------Elbow Visualization---------------
 st.subheader('Определение количества кластеров')
@@ -260,11 +245,6 @@ if fin_op_1=='PCA':
         visual.final_vis(reductor =fin_red,cluster =fin_cl,n_clusters = cl_input,n_components = comp_input,data = final_data)
     
     
-        
-# if fin_button:
-#     form =  st.form("Form4")
-#     visual = vi.Visualise()
-    # form.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
 
 #------------------------Analytics-----------------------
 
@@ -277,38 +257,7 @@ data['Кластеры'] = vi.C
 
 distr = st.checkbox('Посмотрим распределение кластеров')
 if distr:
-    # # pal = ["#682F2F","#B9C0C9", "#9F8A78","#F3AB60","#A4ABB2"]
-    # color = sns.color_palette()[5]
-    # pl = sns.countplot(x=data["Кластеры"])#, palette= pal[data['Кластеры']])
-    # pl.set_title("Распределение кластеров")
-    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    # st.pyplot(plt.show())
 
-    # fig = go.Figure()
-    # for i in range(vi.K):
-    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-    #     colors = 'rgb'+str(colors)
-    #     n_cl = data["Кластеры"].loc[data["Кластеры"] == i]
-    #     fig.add_trace(go.Bar(x=n_cl,
-    #                             y= data[data["Кластеры"]==i].count(),
-    #                          marker_color = colors,
-    #                          name = f"Кластер {i}",
-    #                          width=1))
-    # #   layout = go.Layout(xaxis=dict(data["Кластеры"]),
-    #                     #    title = 'Распределение кластеров')
-        
-    # fig.update_layout(
-    #     # tickangle = 90,
-    #     # histfunc = 'count',
-    #     title = "Распределение кластеров",
-    #     title_text = f"Распределение покупок",
-    #     title_x = 0.5,
-    #     xaxis_title = "Кластеры",
-    #     yaxis_title = "Количество",
-    #     title_font = {"size":15},
-    #     # title_standoff = 25
-    # )
-    # st.plotly_chart(fig)
     #-------Second variation-----
     fig = px.histogram(
         data,x=data['Кластеры'],
@@ -346,41 +295,7 @@ st.write(""" Теперь, давайте попробуем посмотрет�
 """)
 spend = st.checkbox('Посмотрим, в каком кластере наибольшие траты')
 if spend:
-    # plt.figure()
-    # pl=sns.swarmplot(x=data["Кластеры"], y=data["Покупки"], color= "#CBEDDD", alpha=0.5 )
-    # pl=sns.boxenplot(x=data["Кластеры"], y=data["Покупки"])#, palette=pal)
-    # pl.set_title("Количество покупок")
-    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    # st.pyplot(plt.show())
    
-    # fig = go.Figure()
-
-    # for i in range(vi.K):
-    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-    #     colors = 'rgb'+str(colors)
-    #     n_cl = data.loc[data["Кластеры"] == i]
-    #     fig.add_trace(
-    #         go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки"],
-    #         name = f'Кластер {i}',
-    #         boxpoints = 'all',
-    #         whiskerwidth =0.3,
-    #         line_width=1,
-    #         marker_size=3,
-    #         marker=dict(
-    #             color = colors
-    #         )))
-    # fig.update_layout(
-    #     # tickangle = 90,
-    #     title = "Распределение кластеров",
-    #     title_text = "Количество покупок",
-    #     title_x = 0.5,
-    #     xaxis_title = "Кластеры",
-    #     yaxis_title = "Покупки",
-    #     title_font = {"size":20},
-    #     # title_standoff = 25
-    #     height= 800
-    # )
-    # st.plotly_chart(fig,height=800)
     #----------second variation---------------------
     fig = px.box(
                 data,
@@ -410,40 +325,6 @@ st.write(""" Отлично, теперь мы знаем, какие класт
 """)
 deals = st.checkbox('Посмотрим где нибольшее количество покупок со скидкой')
 if deals:
-    # plt.figure()
-    # pl=sns.boxenplot(y=data["Покупки_со_скидкой"],x=data["Кластеры"])#, palette= pal)
-    # pl.set_title("Количество покупок со скидкой")
-    # st.set_option('deprecation.showPyplotGlobalUse', False) #hide warning
-    # st.pyplot(plt.show())
-    # fig = go.Figure()
-
-    # for i in range(vi.K):
-    #     colors = matplotlib.colors.colorConverter.to_rgb(cm.Spectral(float(i) /vi.K))
-    #     colors = 'rgb'+str(colors)
-    #     n_cl = data.loc[data["Кластеры"] == i]
-    #     fig.add_trace(
-    #         go.Box(x=n_cl["Кластеры"],y=n_cl["Покупки_со_скидкой"],
-    #         name = f'Кластер {i}',
-    #         boxpoints = 'all',
-    #         whiskerwidth =0.3,
-    #         line_width=1,
-    #         marker_size=3,
-    #         marker=dict(
-    #             color = colors
-    #         )))
-    # fig.update_layout(
-    #     # tickangle = 90,
-    #     title = "Распределение кластеров",
-    #     title_text = "Количество покупок со скидкой",
-    #     title_x = 0.5,
-    #     xaxis_title = "Кластеры",
-    #     yaxis_title = "Покупки со скидкой",
-    #     title_font = {"size":20},
-    #     # title_standoff = 25
-    #     height= 600,
-    #     width = 800
-    # )
-    # st.plotly_chart(fig,height= 600,width = 800)
 
     fig = px.box(
         data,
@@ -554,5 +435,3 @@ with st.form('Ответьте на все вопросы, чтобы успеш
             >Тест не сдан! Где-то была допущена ошибка.</h3>''', 
             unsafe_allow_html=True) 
 
-# img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
-# st.image(img_meme2,width = 400)
