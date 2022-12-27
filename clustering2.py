@@ -17,9 +17,13 @@ st.markdown('''<h1 style='text-align: center; color: black;'
             > Составление профилей клиентов посредством кластеризации: метрики и практика</h1> 
             ''', 
             unsafe_allow_html=True)
-
 img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
-st.image(img_meme2,width = 400)
+col1, col2, col3 = st.columns([3, 10, 1]) #поиграться с цифрами тут
+col1.write('')
+col2.image(img_meme2, caption='', use_column_width='auto')
+col3.write('')
+
+# st.image(img_meme2,width = 400)
 
 st.markdown('''<h2 style='text-align: center; color: black;'
             >Актуальность тематики</h2>''', 
