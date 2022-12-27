@@ -16,7 +16,7 @@ if not sys.warnoptions:
 
 st.markdown('''<h1 style='text-align: center; color: black;'
             >Составление профилей клиентов посредством кластеризации</h1> 
-            \n<h1>Часть 1: знакомство с методами и инструментами</h1>''', 
+            \n<h1>Часть 1: методы и инструменты</h1>''', 
             unsafe_allow_html=True)
 img_meme_1 = Image.open("7qz.jpg")
 img_meme_2 = Image.open("1_ravEQiopKoM9RgxUhxbP1Q.jpeg")
