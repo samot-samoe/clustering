@@ -14,8 +14,8 @@ import matplotlib.cm as cm
 visual = vi.Visualise()
            
 st.markdown('''<h1 style='text-align: center; color: black;'
-            >Составление профилей клиентов посредством кластеризации</h1> 
-            \n<h1>Часть 2: метрики и практика.</h1>''', 
+            > Составление профилей клиентов посредством кластеризации: метрики и практика.</h1> 
+            ''', 
             unsafe_allow_html=True)
 
 img_meme2 = Image.open('1_wdjul1QTzho8m9_gXZdUiw.png')
