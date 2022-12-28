@@ -407,7 +407,7 @@ st.write(""" Теперь у нас есть достаточное количе
 вопросах может быть несколько ответов.
 
 """)
-with st.form('Ответьте на все вопросы, чтобы успешно завершить лабораторную работу'):
+with st.form('Ответьте на все вопросы, чтобы успешно завершить лабораторную работу. Помните, что на некоторые из вопросов может быть несколько вариантов ответов.'):
     st.markdown('**Вопрос 1:** Какое количество кластеров является оптимальным для данного датасета?')
     question_1_wrong_1 = st.checkbox('2-3', value=False, key='1')
     question_1_right_2 = st.checkbox('4-5', value=False, key='2')
@@ -429,9 +429,9 @@ with st.form('Ответьте на все вопросы, чтобы успеш
     question_4_wrong_2 = st.checkbox('Покупатели с наименьшей покупательской способностью старше 60 лет', value=False, key='12')
     question_4_right_3 = st.checkbox('Покупатели с наименьшей покупательской способностью имеют одного и более ребенка ')
 
-
+    answers = (question_1_wrong_3 or question_1_wrong_4 or question_1_wrong_1 or question_2_wrong_2 or question_2_wrong_3 or question_3_wrong_3 or question_4_wrong_2)
     if st.form_submit_button('Закончить тест и посмотреть результаты'):
-        if question_1_right_2 and question_2_right_1 and question_3_right_1 and question_3_right_2 and question_4_right_1 and question_4_right_3 :
+        if (question_1_right_2 and question_2_right_1 and question_3_right_1 and question_3_right_2 and question_4_right_1 and question_4_right_3) == True and answers == False :
             st.markdown('''<h3 style='text-align: left; color: green;'
             >Тест сдан! Лабораторная работа завершена.</h3>''', 
             unsafe_allow_html=True) 
