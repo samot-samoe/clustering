@@ -126,3 +126,4 @@ xlrd==2.0.1
 yarl==1.8.1
 yellowbrick==1.5
 zipp==3.8.0
+llvmlite 0.39.0
