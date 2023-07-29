@@ -54,13 +54,12 @@ nbconvert==6.5.0
 nbformat==5.4.0
 nest-asyncio==1.5.5
 notebook==6.4.12
-numba==0.57.0
+numba==0.56.0
 numpy==1.23.1
 openpyxl==3.0.10
 packaging==21.3
 pandas==1.4.2
 pandocfilters==1.5.0
-llvmlite==0.38.01
 parso==0.8.3
 patsy==0.5.2
 pexpect==4.8.0
